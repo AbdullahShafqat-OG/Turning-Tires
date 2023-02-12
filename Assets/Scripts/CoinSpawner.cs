@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class CoinSpawner : MonoBehaviour
 {
     [SerializeField]
     private ObstacleSpawner spawner;
@@ -17,6 +17,15 @@ public class Coin : MonoBehaviour
 
     private Color color = Color.blue;
     private List<Transform> coins;
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+    }
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+    }
 
     private void Start()
     {
@@ -42,8 +51,7 @@ public class Coin : MonoBehaviour
 
         if (coins.Count != 0 && coins[0].position.z < spawner.CamZEnd.position.z)
         {
-            Destroy(coins[0].gameObject);
-            coins.RemoveAt(0);
+            DestroyCoin();
         }
     }
 
@@ -59,6 +67,12 @@ public class Coin : MonoBehaviour
         transform.position = position;
 
         Check();
+    }
+
+    private void DestroyCoin()
+    {
+        Destroy(coins[0].gameObject);
+        coins.RemoveAt(0);
     }
 
     private void Check()

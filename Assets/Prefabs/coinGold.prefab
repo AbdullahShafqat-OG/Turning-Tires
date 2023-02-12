@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3436464935411989774}
   - component: {fileID: 364164254856431374}
   m_Layer: 0
-  m_Name: coinGold
-  m_TagString: Untagged
+  m_Name: CoinGold
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3796599180848176347}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2

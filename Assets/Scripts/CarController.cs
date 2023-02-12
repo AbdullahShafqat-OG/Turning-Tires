@@ -102,5 +102,7 @@ public class CarController : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
             _alive = false;
+        else if (other.CompareTag("Coin"))
+            Messenger.Broadcast(GameEvent.COIN_COLLECTED);
     }
 }
