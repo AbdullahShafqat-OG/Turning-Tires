@@ -9,6 +9,8 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField]
     private GameObject coinPrefab;
     [SerializeField]
+    private Transform coinsParent;
+    [SerializeField]
     private float radius = 2f;
     [SerializeField]
     private float zIncrement = 2f;
@@ -21,10 +23,13 @@ public class CoinSpawner : MonoBehaviour
     private void Awake()
     {
         Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
+
     private void OnDestroy()
     {
         Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void Start()
@@ -84,9 +89,15 @@ public class CoinSpawner : MonoBehaviour
         else
         {
             color = Color.blue;
-            GameObject go = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            coins.Add(go.transform);
+            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            coin.transform.parent = coinsParent;
+            coins.Add(coin.transform);
         }
+    }
+
+    private void OnGameOver()
+    {
+        CancelInvoke("SpawnCoin");
     }
 
     private void OnDrawGizmos()
