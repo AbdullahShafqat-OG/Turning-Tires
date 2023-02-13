@@ -5,5 +5,5 @@ using UnityEngine;
 public static class GameEvent
 {
     public const string COIN_COLLECTED = "COIN_COLLECTED";
-    public const string OBSTACLE_HIT = "OBSTACLE_HIT";
+    public const string GAME_OVER = "GAME_OVER";
 }

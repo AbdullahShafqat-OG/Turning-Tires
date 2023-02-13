@@ -20,11 +20,11 @@ public class CoinSpawner : MonoBehaviour
 
     private void Awake()
     {
-        Messenger.AddListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, DestroyCoin);
     }
     private void OnDestroy()
     {
-        Messenger.RemoveListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, DestroyCoin);
     }
 
     private void Start()
@@ -69,7 +69,7 @@ public class CoinSpawner : MonoBehaviour
         Check();
     }
 
-    private void DestroyCoin()
+    private void DestroyCoin(int value = default(int))
     {
         Destroy(coins[0].gameObject);
         coins.RemoveAt(0);

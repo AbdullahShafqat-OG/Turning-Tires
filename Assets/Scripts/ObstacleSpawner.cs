@@ -56,6 +56,7 @@ public class ObstacleSpawner : MonoBehaviour
             for (int j = 0; j < 1; j++)
             {
                 Obstacle obstacle = Instantiate(obstaclePrefabs[i]);
+                obstacle.transform.parent = this.transform;
                 obstacle.gameObject.SetActive(false);
                 objectPool.Enqueue(obstacle);
             }
@@ -69,6 +70,7 @@ public class ObstacleSpawner : MonoBehaviour
             for (int j = 0; j < pooledAmount - 1; j++)
             {
                 Obstacle obstacle = Instantiate(obstaclePrefabs[i]);
+                obstacle.transform.parent = this.transform;
                 obstacle.gameObject.SetActive(false);
                 obstacle.strength = obstacleStrengths[i];
                 poolDictionary[i].Enqueue(obstacle);

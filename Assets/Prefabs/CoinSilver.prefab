@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3796599180848176347
+--- !u!1 &2662523024782384100
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4610536454900074081}
-  - component: {fileID: 600159553522354628}
-  - component: {fileID: 3436464935411989774}
-  - component: {fileID: 364164254856431374}
-  - component: {fileID: 1523985274014100328}
+  - component: {fileID: 3438777836276777310}
+  - component: {fileID: 1735897603227029243}
+  - component: {fileID: 4608258727619623473}
+  - component: {fileID: 6097839510545307120}
+  - component: {fileID: 8376111143954125676}
   m_Layer: 0
-  m_Name: CoinGold
+  m_Name: CoinSilver
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4610536454900074081
+--- !u!4 &3438777836276777310
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796599180848176347}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_GameObject: {fileID: 2662523024782384100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.9999995, y: 0, z: -2.4999998}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &600159553522354628
+--- !u!33 &1735897603227029243
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796599180848176347}
+  m_GameObject: {fileID: 2662523024782384100}
   m_Mesh: {fileID: -2173855341472873619, guid: 1ec6f472382217341ac331025d5c5424, type: 3}
---- !u!23 &3436464935411989774
+--- !u!23 &4608258727619623473
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796599180848176347}
+  m_GameObject: {fileID: 2662523024782384100}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,8 +63,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8863482124825134610, guid: 1ec6f472382217341ac331025d5c5424, type: 3}
-  - {fileID: -8067726398312463513, guid: 1ec6f472382217341ac331025d5c5424, type: 3}
+  - {fileID: 2100000, guid: d77961448a990ca4db69a72ee48098d4, type: 2}
+  - {fileID: 2100000, guid: df49ee52524f6be44ac0e64479a90d82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,29 +86,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &364164254856431374
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796599180848176347}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1523985274014100328
+--- !u!114 &6097839510545307120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796599180848176347}
+  m_GameObject: {fileID: 2662523024782384100}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5e2130821484474586b5afdbcf39972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Value>k__BackingField: 5
+  <Value>k__BackingField: 1
+--- !u!135 &8376111143954125676
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2662523024782384100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}

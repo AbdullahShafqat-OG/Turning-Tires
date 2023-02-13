@@ -17,12 +17,14 @@ public class ScoreManager : MonoBehaviour
         score = 0;
         coins = 0;
 
-        Messenger.AddListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
+        Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
+        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void OnDestroy()
     {
-        Messenger.RemoveListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
+        Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
+        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void Start()
@@ -36,9 +38,14 @@ public class ScoreManager : MonoBehaviour
         score += 1;
     }
 
-    private void UpdateScoreCoin()
+    private void UpdateScoreCoin(int value)
     {
-        coins += 10;
+        coins += value;
+    }
+
+    private void OnGameOver()
+    {
+        CancelInvoke("UpdateScoreTime");
     }
 
     private void OnGUI()

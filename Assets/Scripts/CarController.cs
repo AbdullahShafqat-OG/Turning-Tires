@@ -37,7 +37,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        //if (!_alive) return;
+        if (!_alive) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
             turnSpeed = -turnSpeed;
@@ -101,8 +101,11 @@ public class CarController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))
+        {
             _alive = false;
+            Messenger.Broadcast(GameEvent.GAME_OVER);
+        }
         else if (other.CompareTag("Coin"))
-            Messenger.Broadcast(GameEvent.COIN_COLLECTED);
+            Messenger<int>.Broadcast(GameEvent.COIN_COLLECTED, other.GetComponent<Coin>().Value);
     }
 }
