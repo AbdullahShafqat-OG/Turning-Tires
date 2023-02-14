@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &145744875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   spawner: {fileID: 854171776}
   coinPrefab: {fileID: 3796599180848176347, guid: dd3e8318f95221148a2ab0f3fb77c3f9,
     type: 3}
-  coinsParent: {fileID: 0}
+  coinsParent: {fileID: 1387458370}
   radius: 2
   zIncrement: 2
   interval: 1
@@ -226,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145744874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 15}
+  m_LocalPosition: {x: 0, y: 0.5, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &208318219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -352,7 +352,10 @@ MonoBehaviour:
   maxTurn: 30
   screenBounds: {fileID: 45061163}
   trail: {fileID: 208318224}
+  coinCollectionRadius: 2
+  coinMagnet: 1
   ground: {fileID: 359122004}
+  currentCamPosition: {x: 0, y: 0, z: 0}
 --- !u!96 &208318224
 TrailRenderer:
   serializedVersion: 2
@@ -793,13 +796,14 @@ MonoBehaviour:
   - {fileID: 621299433942619311, guid: a9cb68dcce0761f42945fe023e4f00fc, type: 3}
   - {fileID: 8349776330186586255, guid: 2344983bd5084c34fa838e3f615e1f8a, type: 3}
   - {fileID: 1482297713384381781, guid: e67132307be676c4ea7394c22034a895, type: 3}
+  - {fileID: 8410609085784953215, guid: b9802e06b26dbaf418977fb23abec9f0, type: 3}
   yMax: 1
   yMin: 2
   screenBounds: {fileID: 45061163}
   numIterations: 20
   camZEnd: {fileID: 310534773}
   camZStart: {fileID: 2059781794}
-  safetyLevel: 1
+  safetyLevel: 5
   zOffset: 50
 --- !u!4 &854171777
 Transform:
@@ -988,6 +992,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796599180848176347, guid: dd3e8318f95221148a2ab0f3fb77c3f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4610536454900074081, guid: dd3e8318f95221148a2ab0f3fb77c3f9,
         type: 3}

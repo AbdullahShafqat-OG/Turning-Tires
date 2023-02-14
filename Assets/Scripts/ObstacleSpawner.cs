@@ -80,13 +80,6 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            float screenBoundsX = screenBounds.GetBoundsSize().x / 2f;
-            Generate(screenBoundsX);
-            currentZ += cameraLength;
-        }
-
         if (camZStart.position.z > currentZ)
         {
             if (screenBoundsX == -1) screenBoundsX = screenBounds.GetBoundsSize().x / 2f;

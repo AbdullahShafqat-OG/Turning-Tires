@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CoinSpawner : MonoBehaviour
 {
@@ -22,13 +23,15 @@ public class CoinSpawner : MonoBehaviour
 
     private void Awake()
     {
-        Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, DownScaleCoin);
+        Messenger<Transform, Transform>.AddListener(GameEvent.COIN_PULLED, PullCoin);
         Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void OnDestroy()
     {
-        Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, DestroyCoin);
+        Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, DownScaleCoin);
+        Messenger<Transform, Transform>.RemoveListener(GameEvent.COIN_PULLED, PullCoin);
         Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
@@ -40,12 +43,6 @@ public class CoinSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Debug.Log("HELELEo");
-            Check();
-        }
-
         if (color == Color.red)
         {
             var p = transform.position;
@@ -74,10 +71,22 @@ public class CoinSpawner : MonoBehaviour
         Check();
     }
 
-    private void DestroyCoin(int value = default(int))
+    private void DownScaleCoin(int value = default(int))
+    {
+        coins[0].transform.DOScale(0, 0.1f).OnComplete(DestroyCoin);
+    }
+
+    private void DestroyCoin()
     {
         Destroy(coins[0].gameObject);
         coins.RemoveAt(0);
+    }
+
+    private void PullCoin(Transform player, Transform coin)
+    {
+        Transform c = coins.Find(x => x == coin);
+        var tween = c.transform.DOMove(player.transform.position, 0.2f);
+        c.transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(DestroyCoin);
     }
 
     private void Check()

@@ -12,7 +12,14 @@ public class CarController : MonoBehaviour
     public TrailRenderer trail;
 
     [SerializeField]
+    private float coinCollectionRadius = 2.0f;
+
+    public bool coinMagnet = false;
+
+    [SerializeField]
     private GameObject ground;
+
+    public Vector3 currentCamPosition;
 
     private Vector3 _offsetBounds;
     private Camera _cam;
@@ -45,9 +52,12 @@ public class CarController : MonoBehaviour
         Turn();
         Move();
 
-        CamFollow();
-        BoundsFollow();
-        GroundFollow();
+        currentCamPosition = FollowPlayer(_cam.transform, _offsetCam);
+        FollowPlayer(screenBounds.transform, _offsetBounds);
+        FollowPlayer(ground.transform, _offsetGround);
+
+        CollectCoin();
+        CoinMagnet();
     }
 
     private void Move()
@@ -77,25 +87,56 @@ public class CarController : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, _rotation, 0);
     }
 
-    private void CamFollow()
+    private Vector3 FollowPlayer(Transform t, Vector3 offset)
     {
-        Vector3 pos = transform.position + _offsetCam;
-        pos.x = _cam.transform.position.x;
-        _cam.transform.position = pos;
+        Vector3 pos = transform.position + offset;
+        pos.x = t.position.x;
+        t.position = pos;
+        return pos;
     }
 
-    private void BoundsFollow()
+    private void CollectCoin()
     {
-        Vector3 pos = transform.position + _offsetBounds;
-        pos.x = _cam.transform.position.x;
-        screenBounds.transform.position = pos;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, coinCollectionRadius);
+
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("Coin"))
+                Messenger<Transform, Transform>.Broadcast(GameEvent.COIN_PULLED, this.transform, col.transform);
+        }
     }
 
-    private void GroundFollow()
+    private void CoinMagnet()
     {
-        Vector3 pos = transform.position + _offsetGround;
-        pos.x = ground.transform.position.x;
-        ground.transform.position = pos;
+        if (!coinMagnet) return;
+
+        Ray ray = new Ray(transform.position, transform.right);
+        RaycastHit[] hits;
+
+        hits = Physics.SphereCastAll(ray, 1.0f);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            if (hit.transform.CompareTag("Coin"))
+            {
+                Messenger<Transform, Transform>.Broadcast(GameEvent.COIN_PULLED, this.transform, hit.transform);
+            }
+        }
+
+        Ray rayLeft = new Ray(transform.position, -transform.right);
+        RaycastHit[] hitsLeft;
+
+        hitsLeft = Physics.SphereCastAll(rayLeft, 1.0f);
+
+        for (int i = 0; i < hitsLeft.Length; i++)
+        {
+            RaycastHit hit = hitsLeft[i];
+            if (hit.transform.CompareTag("Coin"))
+            {
+                Messenger<Transform, Transform>.Broadcast(GameEvent.COIN_PULLED, this.transform, hit.transform);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,7 +146,17 @@ public class CarController : MonoBehaviour
             _alive = false;
             Messenger.Broadcast(GameEvent.GAME_OVER);
         }
-        else if (other.CompareTag("Coin"))
-            Messenger<int>.Broadcast(GameEvent.COIN_COLLECTED, other.GetComponent<Coin>().Value);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Ray ray = new Ray(transform.position, transform.right);
+        Gizmos.DrawRay(ray);
+
+        Ray ray2 = new Ray(transform.position, -transform.right);
+        Gizmos.DrawRay(ray2);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, coinCollectionRadius);
     }
 }

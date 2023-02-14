@@ -28,8 +28,8 @@ public class ScreenBounds : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) UpdateBoundsSize();
-        if (Input.GetKeyDown(KeyCode.E)) FindBoundaries();
+        //if (Input.GetKeyDown(KeyCode.Q)) UpdateBoundsSize();
+        //if (Input.GetKeyDown(KeyCode.E)) FindBoundaries();
     }
 
     private void UpdateBoundsSize()

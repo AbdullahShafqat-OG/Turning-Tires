@@ -48,12 +48,6 @@ public class ObjectSpawner : MonoBehaviour
         {
             Delete2DCubeMap();
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            foreach (int x in _selectedHistory)
-                Debug.Log(x);
-        }
     }
 
     private void Delete2DCubeMap()
