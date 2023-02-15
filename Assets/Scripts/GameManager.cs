@@ -5,37 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool gameOver = false;
+    public ScoreManager scoreManager;
+    public ObstacleSpawner obstacleSpawner;
+    public CoinSpawner coinSpawner;
+    public CarController carController;
+    public UIController uiController;
+
     private Camera cam;
+
+    GameBaseState currentState;
+
+    public GamePreState preState { get; private set; } = new GamePreState();
+    public GamePlayState playState { get; private set; } = new GamePlayState();
+    public GamePauseState pauseState { get; private set; } = new GamePauseState();
+    public GamePostState postState { get; private set; } = new GamePostState();
 
     private void Awake()
     {
         cam = Camera.main;
 
-        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+        currentState = preState;
+        currentState.EnterState(this);
     }
 
-    private void OnDestroy()
+    private void Update()
     {
-        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
+        currentState.UpdateState(this);
     }
 
-    private void OnGameOver()
+    public void SwitchState(GameBaseState state)
     {
-        gameOver = true;
+        currentState.ExitState(this);
+        currentState = state;
+        currentState.EnterState(this);
     }
 
     void OnGUI()
     {
-        if (!gameOver) return;
-
-        int sizeX = 100, sizeY = 20;
-        float posX = cam.pixelWidth / 2 - sizeX / 4;
-        float posY = cam.pixelHeight / 2 - sizeY / 2;
-
-        if (GUI.Button(new Rect(posX, posY, sizeX, sizeY), "Play Again"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        currentState.OnGUI(this);
     }
 }

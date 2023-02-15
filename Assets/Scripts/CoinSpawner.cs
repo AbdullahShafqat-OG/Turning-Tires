@@ -23,16 +23,14 @@ public class CoinSpawner : MonoBehaviour
 
     private void Awake()
     {
-        Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, DownScaleCoin);
         Messenger<Transform, Transform>.AddListener(GameEvent.COIN_PULLED, PullCoin);
-        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+        //Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void OnDestroy()
     {
-        Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, DownScaleCoin);
         Messenger<Transform, Transform>.RemoveListener(GameEvent.COIN_PULLED, PullCoin);
-        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
+        //Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void Start()
@@ -82,11 +80,21 @@ public class CoinSpawner : MonoBehaviour
         coins.RemoveAt(0);
     }
 
+    private void DestroyCoin(Transform coin)
+    {
+        Messenger<int>.Broadcast(GameEvent.COIN_COLLECTED, coin.GetComponent<Coin>().value);
+        Destroy(coin.gameObject);
+        coins.Remove(coin);
+    }
+
     private void PullCoin(Transform player, Transform coin)
     {
-        Transform c = coins.Find(x => x == coin);
-        var tween = c.transform.DOMove(player.transform.position, 0.2f);
-        c.transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(DestroyCoin);
+        Coin test = coin.GetComponent<Coin>();
+        if (test != null)
+        {
+            coin.transform.DOMove(player.transform.position, 0.2f);
+            coin.transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(() => DestroyCoin(coin));
+        }
     }
 
     private void Check()

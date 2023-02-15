@@ -5,8 +5,7 @@ using DG.Tweening;
 
 public class Coin : MonoBehaviour
 {
-    [field: SerializeField]
-    public int Value { get; private set; }
+    [field: SerializeField] public int value { get; private set; }
 
     [SerializeField] private float moveDistance = 2.0f;
     [SerializeField] private float moveDuration = 1.0f;

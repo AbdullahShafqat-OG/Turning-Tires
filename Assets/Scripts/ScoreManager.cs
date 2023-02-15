@@ -9,8 +9,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField, Tooltip("In milliseconds")]
     private float scoreWithTimeRate = 1.0f;
 
-    private int score;
-    private int coins;
+    public int score { get; private set; }
+    public int coins { get; private set; }
 
     private void Awake()
     {
@@ -18,13 +18,13 @@ public class ScoreManager : MonoBehaviour
         coins = 0;
 
         Messenger<int>.AddListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
-        Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+        //Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void OnDestroy()
     {
         Messenger<int>.RemoveListener(GameEvent.COIN_COLLECTED, UpdateScoreCoin);
-        Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
+        //Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void Start()
@@ -46,11 +46,5 @@ public class ScoreManager : MonoBehaviour
     private void OnGameOver()
     {
         CancelInvoke("UpdateScoreTime");
-    }
-
-    private void OnGUI()
-    {
-        GUI.Box(new Rect(10, 10, 100, 20), new GUIContent(score.ToString()));
-        GUI.Box(new Rect(10, 40, 100, 20), new GUIContent(coins.ToString()));
     }
 }

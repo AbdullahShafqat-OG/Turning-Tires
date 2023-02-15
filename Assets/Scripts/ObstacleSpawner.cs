@@ -15,6 +15,9 @@ public class ObstacleSpawner : MonoBehaviour
     [Space]
     [SerializeField]
     private ScreenBounds screenBounds;
+    [SerializeField]
+    private Transform obstaclesParent;
+
     public ScreenBounds ScreenBounds
     {
         get { return screenBounds; }
@@ -56,7 +59,7 @@ public class ObstacleSpawner : MonoBehaviour
             for (int j = 0; j < 1; j++)
             {
                 Obstacle obstacle = Instantiate(obstaclePrefabs[i]);
-                obstacle.transform.parent = this.transform;
+                obstacle.transform.parent = obstaclesParent;
                 obstacle.gameObject.SetActive(false);
                 objectPool.Enqueue(obstacle);
             }
@@ -70,7 +73,7 @@ public class ObstacleSpawner : MonoBehaviour
             for (int j = 0; j < pooledAmount - 1; j++)
             {
                 Obstacle obstacle = Instantiate(obstaclePrefabs[i]);
-                obstacle.transform.parent = this.transform;
+                obstacle.transform.parent = obstaclesParent;
                 obstacle.gameObject.SetActive(false);
                 obstacle.strength = obstacleStrengths[i];
                 poolDictionary[i].Enqueue(obstacle);

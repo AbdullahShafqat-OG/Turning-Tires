@@ -8,7 +8,6 @@ public class CarController : MonoBehaviour
     public float turnSpeed = 150.0f;
     public float minTurn = -30.0f;
     public float maxTurn = 30.0f;
-    public ScreenBounds screenBounds;
     public TrailRenderer trail;
 
     [SerializeField]
@@ -16,8 +15,10 @@ public class CarController : MonoBehaviour
 
     public bool coinMagnet = false;
 
-    [SerializeField]
+    private ScreenBounds screenBounds;
     private GameObject ground;
+    [SerializeField]
+    private GameObject explosionParticle;
 
     public Vector3 currentCamPosition;
 
@@ -28,7 +29,8 @@ public class CarController : MonoBehaviour
 
     private float _rotation = 0;
 
-    private bool _alive = true;
+    public bool alive { get; private set; } = true;
+    private bool firstTap = false;
 
     private void Awake()
     {
@@ -37,19 +39,21 @@ public class CarController : MonoBehaviour
 
     private void Start()
     {
+        screenBounds = FindObjectOfType<ScreenBounds>();
+        ground = GameObject.FindGameObjectWithTag("Respawn");
+
         _offsetBounds = screenBounds.transform.position - transform.position;
         _offsetCam = _cam.transform.position - transform.position;
         _offsetGround = ground.transform.position - transform.position;
+
+        turnSpeed = -turnSpeed;
     }
 
     private void Update()
     {
-        if (!_alive) return;
+        if (!alive) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            turnSpeed = -turnSpeed;
-
-        Turn();
+        //Turn();
         Move();
 
         currentCamPosition = FollowPlayer(_cam.transform, _offsetCam);
@@ -79,8 +83,16 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void Turn()
+    public void Turn()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            firstTap = true;
+            turnSpeed = -turnSpeed;
+        }
+
+        if (!firstTap) return;
+
         _rotation += turnSpeed * Time.deltaTime;
         _rotation = Mathf.Clamp(_rotation, minTurn, maxTurn);
 
@@ -143,8 +155,24 @@ public class CarController : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            _alive = false;
-            Messenger.Broadcast(GameEvent.GAME_OVER);
+            PlayerDead();
+        }
+    }
+
+    private void PlayerDead()
+    {
+        alive = false;
+        Instantiate(explosionParticle, transform.position, Quaternion.identity);
+
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+
+        foreach (MeshRenderer r in renderers)
+        {
+            if (r.gameObject.GetComponent<Collider>() == null)
+            {
+                r.gameObject.AddComponent(typeof(BoxCollider));
+                r.gameObject.AddComponent(typeof(Rigidbody));
+            }
         }
     }
 
