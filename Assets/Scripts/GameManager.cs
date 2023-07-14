@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public ScoreManager scoreManager;
+    public Spawner spawner;
     public ObstacleSpawner obstacleSpawner;
     public CoinSpawner coinSpawner;
-    public CarController carController;
+    public CarController[] carController;
     public UIController uiController;
 
     private Camera cam;

@@ -12,46 +12,29 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField]
     private float yMax = 1, yMin = 2;
 
-    [Space]
-    [SerializeField]
-    private ScreenBounds screenBounds;
     [SerializeField]
     private Transform obstaclesParent;
 
-    public ScreenBounds ScreenBounds
-    {
-        get { return screenBounds; }
-    }
     [SerializeField]
     private int numIterations = 50;
-    [SerializeField]
-    private Transform camZEnd;
-    public Transform CamZEnd
-    {
-        get { return camZEnd; }
-    }
-    [SerializeField]
-    private Transform camZStart;
     [SerializeField]
     private float safetyLevel = 1f;
 
     private Dictionary<int, Queue<Obstacle>> poolDictionary;
     private float[] obstacleStrengths;
 
-    private float screenBoundsX = -1;
-    private float cameraLength;
-    private float currentZ;
-    public float CurrentZ
+    private void OnEnable()
     {
-        get { return currentZ; }
+        Spawner.OnSpawn += Generate;
     }
-    public float zOffset;
+
+    private void OnDisable()
+    {
+        Spawner.OnSpawn -= Generate;
+    }
 
     private void Start()
     {
-        cameraLength = camZStart.position.z - camZEnd.position.z;
-        currentZ = camZEnd.position.z + zOffset;
-
         poolDictionary = new Dictionary<int, Queue<Obstacle>>();
         for (int i = 0; i < obstaclePrefabs.Length; i++)
         {
@@ -78,17 +61,6 @@ public class ObstacleSpawner : MonoBehaviour
                 obstacle.strength = obstacleStrengths[i];
                 poolDictionary[i].Enqueue(obstacle);
             }
-        }
-    }
-
-    private void Update()
-    {
-        if (camZStart.position.z > currentZ)
-        {
-            if (screenBoundsX == -1) screenBoundsX = screenBounds.GetBoundsSize().x / 2f;
-            Generate(screenBoundsX);
-
-            currentZ += cameraLength;
         }
     }
 
@@ -150,7 +122,7 @@ public class ObstacleSpawner : MonoBehaviour
                 new Vector3(
                     Random.Range(-boundsX, boundsX), 
                     0, 
-                    Random.Range(currentZ + strength, currentZ - strength + cameraLength)
+                    Random.Range(Spawner.Instance.CurrentZ + strength, Spawner.Instance.CurrentZ - strength + Spawner.Instance.CameraLength)
                     );
             positions[i] = position;
 

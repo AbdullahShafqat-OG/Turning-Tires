@@ -6,8 +6,6 @@ using DG.Tweening;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField]
-    private ObstacleSpawner spawner;
-    [SerializeField]
     private GameObject coinPrefab;
     [SerializeField]
     private Transform coinsParent;
@@ -49,7 +47,7 @@ public class CoinSpawner : MonoBehaviour
             Check();
         }
 
-        if (coins.Count != 0 && coins[0].position.z < spawner.CamZEnd.position.z)
+        if (coins.Count != 0 && coins[0].position.z < Spawner.Instance.CamZEnd.position.z)
         {
             DestroyCoin();
         }
@@ -57,12 +55,13 @@ public class CoinSpawner : MonoBehaviour
 
     private void SpawnCoin()
     {
-        float screenBoundsX = spawner.ScreenBounds.GetBoundsSize().x / 2f;
+        float screenBoundsX = Spawner.Instance.ScreenBounds.GetBoundsSize().x / 2f;
+
         Vector3 position =
                 new Vector3(
                     Random.Range(-screenBoundsX, screenBoundsX),
                     0,
-                    spawner.CurrentZ
+                    Spawner.Instance.CurrentZ
                     );
         transform.position = position;
 

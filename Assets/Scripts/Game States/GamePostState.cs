@@ -7,6 +7,7 @@ public class GamePostState : GameBaseState
 {
     public override void EnterState(GameManager game)
     {
+        game.spawner.gameObject.SetActive(false);
         game.coinSpawner.gameObject.SetActive(false);
         game.obstacleSpawner.gameObject.SetActive(false);
 
