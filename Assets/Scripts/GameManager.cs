@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public Spawner spawner;
     public ObstacleSpawner obstacleSpawner;
+    public DecorationSpawner decorationSpawner;
     public CoinSpawner coinSpawner;
     public CarController[] carController;
     public UIController uiController;

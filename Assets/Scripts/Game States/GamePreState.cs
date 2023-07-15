@@ -8,6 +8,7 @@ public class GamePreState : GameBaseState
     {
         game.spawner.gameObject.SetActive(false);
         game.coinSpawner.gameObject.SetActive(false);
+        game.decorationSpawner.gameObject.SetActive(false);
         game.obstacleSpawner.gameObject.SetActive(false);
 
         game.uiController.playBtn.onClick.AddListener(() => game.SwitchState(game.playState));

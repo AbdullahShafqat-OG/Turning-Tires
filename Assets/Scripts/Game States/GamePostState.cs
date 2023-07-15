@@ -9,6 +9,7 @@ public class GamePostState : GameBaseState
     {
         game.spawner.gameObject.SetActive(false);
         game.coinSpawner.gameObject.SetActive(false);
+        game.decorationSpawner.gameObject.SetActive(false);
         game.obstacleSpawner.gameObject.SetActive(false);
 
         game.uiController.replayBtn.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));

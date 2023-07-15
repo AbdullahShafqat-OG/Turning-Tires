@@ -9,6 +9,7 @@ public class GamePlayState : GameBaseState
     {
         game.spawner.gameObject.SetActive(true);
         game.coinSpawner.gameObject.SetActive(true);
+        game.decorationSpawner.gameObject.SetActive(true);
         game.obstacleSpawner.gameObject.SetActive(true);
 
         game.uiController.Open(game.uiController.playStatePanel);

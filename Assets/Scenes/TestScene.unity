@@ -963,7 +963,7 @@ PrefabInstance:
     - target: {fileID: 445875969805345208, guid: 460bbfde02f19374fb6acbb3623a9537,
         type: 3}
       propertyPath: coinMagnet
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 445875969805345208, guid: 460bbfde02f19374fb6acbb3623a9537,
         type: 3}
@@ -1476,6 +1476,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878252547}
   m_CullTransparentMesh: 1
+--- !u!1 &908689862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908689864}
+  - component: {fileID: 908689863}
+  m_Layer: 0
+  m_Name: DecorationSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &908689863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908689862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5343c39642b634481492ec44e667c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decorationPrefabs:
+  - {fileID: 4099868026366477121, guid: b841fa074796217468413216fa6c007d, type: 3}
+  - {fileID: 919132149155446097, guid: dbf5d75363c7634439da09e235d22f0b, type: 3}
+  _decorationsParent: {fileID: 1812916373}
+  _rows: 10
+--- !u!4 &908689864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908689862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1821,7 @@ MonoBehaviour:
   scoreManager: {fileID: 1797584692}
   spawner: {fileID: 188221864}
   obstacleSpawner: {fileID: 854171776}
+  decorationSpawner: {fileID: 908689863}
   coinSpawner: {fileID: 145744875}
   carController:
   - {fileID: 1242850306}
@@ -6969,6 +7019,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810013101}
   m_CullTransparentMesh: 1
+--- !u!1 &1812916372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812916373}
+  m_Layer: 0
+  m_Name: DeocrationsParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1812916373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812916372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039732660
 GameObject:
   m_ObjectHideFlags: 0
