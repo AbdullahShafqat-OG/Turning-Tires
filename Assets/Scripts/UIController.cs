@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public GameObject playStatePanel { get; private set; }
     public TMP_Text scoreTxt;
     public TMP_Text coinsTxt;
+    public TMP_Text destructionTxt;
 
     [field: SerializeField]
     public GameObject postStatePanel { get; private set; }

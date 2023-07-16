@@ -28,8 +28,9 @@ public class GamePlayState : GameBaseState
         foreach (CarController c in game.carController)
             c.Turn();
 
-        game.uiController.scoreTxt.text = game.scoreManager.score.ToString();
-        game.uiController.coinsTxt.text = game.scoreManager.coins.ToString();
+        game.uiController.scoreTxt.text = "Score: " + game.scoreManager.score.ToString();
+        game.uiController.coinsTxt.text = "Coins: " + game.scoreManager.coins.ToString();
+        game.uiController.destructionTxt.text = "Destruction: " + game.scoreManager.destruction.ToString();
     }
 
     public override void ExitState(GameManager game)

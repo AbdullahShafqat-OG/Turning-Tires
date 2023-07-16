@@ -17,7 +17,8 @@ public class GamePreState : GameBaseState
 
     public override void UpdateState(GameManager game)
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+            game.SwitchState(game.playState);
     }
 
     public override void ExitState(GameManager game)

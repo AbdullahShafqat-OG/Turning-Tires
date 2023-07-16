@@ -13,7 +13,10 @@ public class CarController : MonoBehaviour
     [SerializeField]
     private float coinCollectionRadius = 2.0f;
 
+    [Header("Special Modes")]
     public bool coinMagnet = false;
+    public bool shield = false;
+    public bool annihilator = false;
 
     private ScreenBounds screenBounds;
     private GameObject ground;
@@ -155,8 +158,17 @@ public class CarController : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            PlayerDead();
+            if (annihilator)
+                Annihilate(other.gameObject);
+            else if (!shield)
+                PlayerDead();
         }
+    }
+
+    private void Annihilate(GameObject obstacle)
+    {
+        obstacle.SetActive(false);
+        Messenger<int>.Broadcast(GameEvent.OBSTACLE_DESTROYED, 5);
     }
 
     private void PlayerDead()
