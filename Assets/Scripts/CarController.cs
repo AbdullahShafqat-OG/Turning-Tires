@@ -17,6 +17,7 @@ public class CarController : MonoBehaviour
     public bool coinMagnet = false;
     public bool shield = false;
     public bool annihilator = false;
+    public bool ghost = false;
 
     private ScreenBounds screenBounds;
     private GameObject ground;
@@ -160,7 +161,7 @@ public class CarController : MonoBehaviour
         {
             if (annihilator)
                 Annihilate(other.gameObject);
-            else if (!shield)
+            else if (!shield && !ghost)
                 PlayerDead();
         }
     }

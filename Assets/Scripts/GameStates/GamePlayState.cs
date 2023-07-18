@@ -5,6 +5,8 @@ using System.Linq;
 
 public class GamePlayState : GameBaseState
 {
+    private float timer;
+
     public override void EnterState(GameManager game)
     {
         game.spawner.gameObject.SetActive(true);
@@ -13,24 +15,22 @@ public class GamePlayState : GameBaseState
         game.obstacleSpawner.gameObject.SetActive(true);
 
         game.uiController.Open(game.uiController.playStatePanel);
+
+        timer = game.speedDifficultyRampTime;
     }
 
     public override void UpdateState(GameManager game)
     {
-        //if (!game.carController.alive)
-        //    game.SwitchState(game.postState);
-
-        //game.carController.Turn();
-
-        if (!game.carController.Any(c => c.alive))
+        if (!game.carController.alive)
             game.SwitchState(game.postState);
 
-        foreach (CarController c in game.carController)
-            c.Turn();
+        game.carController.Turn();
 
         game.uiController.scoreTxt.text = "Score: " + game.scoreManager.score.ToString();
         game.uiController.coinsTxt.text = "Coins: " + game.scoreManager.coins.ToString();
         game.uiController.destructionTxt.text = "Destruction: " + game.scoreManager.destruction.ToString();
+
+        IncreaseDifficulty(game);
     }
 
     public override void ExitState(GameManager game)
@@ -42,5 +42,26 @@ public class GamePlayState : GameBaseState
     {
         //GUI.Box(new Rect(10, 10, 100, 20), new GUIContent(game.scoreManager.score.ToString()));
         //GUI.Box(new Rect(10, 40, 100, 20), new GUIContent(game.scoreManager.coins.ToString()));
+    }
+
+    private void IncreaseDifficulty(GameManager game)
+    {
+        if (timer <= 0)
+        {
+            if (game.obstacleSpawner.SafetyLevel > game.obstacleSpawner.MinSafetyLevel)
+            {
+                timer = game.obstacleDifficultyRampTime;
+                game.obstacleSpawner.SafetyLevel -= game.obstacleDifficultyRamp;
+            }
+            else
+            {
+                timer = game.speedDifficultyRampTime;
+                game.carController.speed += game.speedDifficultyRamp;
+            }
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+        }
     }
 }

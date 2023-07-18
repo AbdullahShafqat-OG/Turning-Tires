@@ -8,6 +8,9 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField]
     private GameObject coinPrefab;
     [SerializeField]
+    private GameObject[] _powerupPrefabs;
+
+    [SerializeField]
     private Transform coinsParent;
     [SerializeField]
     private float radius = 2f;
@@ -15,6 +18,10 @@ public class CoinSpawner : MonoBehaviour
     private float zIncrement = 2f;
     [SerializeField]
     private float interval = 3f;
+
+    [Range(0, 100)]
+    [SerializeField]
+    private int _powerupPercentage = 10;
 
     private Color color = Color.blue;
     private List<Transform> coins;
@@ -34,7 +41,7 @@ public class CoinSpawner : MonoBehaviour
     private void Start()
     {
         coins = new List<Transform>();
-        InvokeRepeating("SpawnCoin", interval, interval);
+        Invoke("SpawnCoin", interval);
     }
 
     private void Update()
@@ -105,9 +112,23 @@ public class CoinSpawner : MonoBehaviour
         else
         {
             color = Color.blue;
-            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            coin.transform.parent = coinsParent;
-            coins.Add(coin.transform);
+            if (Random.Range(0, 100) < _powerupPercentage)
+            {
+                Vector3 pos = transform.position;
+                GameObject powerup = 
+                    Instantiate(_powerupPrefabs[Random.Range(0, _powerupPrefabs.Length)]);
+                pos.y = powerup.transform.position.y;
+                powerup.transform.position = pos;
+                powerup.transform.rotation = Quaternion.identity;
+            }
+            else
+            {
+                GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                coin.transform.parent = coinsParent;
+                coins.Add(coin.transform);
+            }
+
+            Invoke("SpawnCoin", interval);
         }
     }
 

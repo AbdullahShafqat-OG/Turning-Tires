@@ -7,10 +7,10 @@ public class ShieldPowerup : MonoBehaviour
 {
     [SerializeField]
     private GameObject _shieldGameobject;
-    [SerializeField]
-    private float _duration = 2.0f;
 
     private CarController _carController;
+
+    private bool _contactingObstacle = false;
 
     private void Awake()
     {
@@ -23,15 +23,22 @@ public class ShieldPowerup : MonoBehaviour
     {
         _shieldGameobject.SetActive(true);
         _carController.shield = true;
-
-        StartCoroutine(Deactivate());
     }
 
-    public IEnumerator Deactivate()
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(_duration);
+        if (other.CompareTag("Obstacle"))
+        {
+            _contactingObstacle = true;
+        }
+    }
 
-        _shieldGameobject.SetActive(false);
-        _carController.shield = false;
+    private void OnTriggerExit(Collider other)
+    {
+        if (_contactingObstacle)
+        {
+            _shieldGameobject.SetActive(false);
+            _carController.shield = false;
+        }
     }
 }

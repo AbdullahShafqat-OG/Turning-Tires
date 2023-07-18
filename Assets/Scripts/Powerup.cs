@@ -6,7 +6,6 @@ public class Powerup : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("triggered by player");
         string tag = this.tag;
         switch (tag)
         {
@@ -14,10 +13,13 @@ public class Powerup : MonoBehaviour
                 other.GetComponent<ShieldPowerup>().Activate();
                 break;
             case "Magnet":
+                other.GetComponent<MagnetPowerup>().Activate();
                 break;
             case "Annihilate":
-                Debug.Log("Annihilating");
                 other.GetComponent<AnnihilatePowerup>().Activate();
+                break;
+            case "Ghost":
+                other.GetComponent<GhostPowerup>().Activate();
                 break;
             default:
                 break;

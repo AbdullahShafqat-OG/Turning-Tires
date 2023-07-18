@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - Annihilate
   - Shield
+  - Ghost
+  - Magnet
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,17 @@ public class ObstacleSpawner : MonoBehaviour
     private int numIterations = 50;
     [SerializeField]
     private float safetyLevel = 1f;
+    public float SafetyLevel 
+    { 
+        get => safetyLevel; 
+        set => safetyLevel = Mathf.Max(value, minSafetyLevel); 
+    }
+    [SerializeField]
+    private float minSafetyLevel = 1.0f;
+    public float MinSafetyLevel
+    {
+        get => minSafetyLevel;
+    }
 
     private Dictionary<int, Queue<Obstacle>> poolDictionary;
     private float[] obstacleStrengths;
@@ -133,7 +144,7 @@ public class ObstacleSpawner : MonoBehaviour
                 if (valids[j] == false)
                     continue;
 
-                if (Vector3.Distance(positions[i], positions[j]) < (strengths[i] + strengths[j] + safetyLevel))
+                if (Vector3.Distance(positions[i], positions[j]) < (strengths[i] + strengths[j] + SafetyLevel))
                 {
                     valids[i] = false;
                     break;
