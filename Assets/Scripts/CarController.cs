@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    public float menuSpeed = 5.0f;
     public float speed = 20.0f;
     public float turnSpeed = 150.0f;
     public float minTurn = -30.0f;
@@ -34,7 +35,10 @@ public class CarController : MonoBehaviour
     private float _rotation = 0;
 
     public bool alive { get; private set; } = true;
+
     private bool firstTap = false;
+
+    public float CurrentSpeed { private get; set; }
 
     private void Awake()
     {
@@ -70,7 +74,7 @@ public class CarController : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * CurrentSpeed * Time.deltaTime);
 
         StartCoroutine(Wrap());
     }

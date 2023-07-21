@@ -18,7 +18,13 @@ public class UIController : MonoBehaviour
 
     [field: SerializeField]
     public GameObject postStatePanel { get; private set; }
+    [field: SerializeField]
+    public GameObject pauseStatePanel { get; private set; }
+
     public Button replayBtn;
+
+    private bool paused = false;
+    public bool Paused { get => paused; private set => paused = value; }
 
     public void Open(GameObject panel)
     {
@@ -28,5 +34,10 @@ public class UIController : MonoBehaviour
     public void Close(GameObject panel)
     {
         panel.SetActive(false);
+    }
+
+    public void Pause()
+    {
+        Paused = !Paused;
     }
 }

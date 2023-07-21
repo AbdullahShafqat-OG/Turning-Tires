@@ -16,11 +16,15 @@ public class GamePlayState : GameBaseState
 
         game.uiController.Open(game.uiController.playStatePanel);
 
+        game.carController.CurrentSpeed = game.carController.speed;
         timer = game.speedDifficultyRampTime;
     }
 
     public override void UpdateState(GameManager game)
     {
+        if (game.uiController.Paused)
+            game.SwitchState(game.pauseState);
+
         if (!game.carController.alive)
             game.SwitchState(game.postState);
 

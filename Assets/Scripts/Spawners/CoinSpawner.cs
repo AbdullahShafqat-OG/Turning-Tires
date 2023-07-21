@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Pool;
 
 public class CoinSpawner : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class CoinSpawner : MonoBehaviour
     private Color color = Color.blue;
     private List<Transform> coins;
 
+    private ObjectPool<GameObject> _pool;
+
     private void Awake()
     {
         Messenger<Transform, Transform>.AddListener(GameEvent.COIN_PULLED, PullCoin);
@@ -40,6 +43,16 @@ public class CoinSpawner : MonoBehaviour
 
     private void Start()
     {
+        _pool = new ObjectPool<GameObject>(() => {
+            return Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }, coin => {
+            coin.SetActive(true);
+        }, coin => {
+            coin.SetActive(false);
+        }, coin => {
+            Destroy(coin);
+        }, false, 40, 100);
+
         coins = new List<Transform>();
         Invoke("SpawnCoin", interval);
     }
@@ -82,14 +95,16 @@ public class CoinSpawner : MonoBehaviour
 
     private void DestroyCoin()
     {
-        Destroy(coins[0].gameObject);
+        _pool.Release(coins[0].gameObject);
+        //Destroy(coins[0].gameObject);
         coins.RemoveAt(0);
     }
 
     private void DestroyCoin(Transform coin)
     {
         Messenger<int>.Broadcast(GameEvent.COIN_COLLECTED, coin.GetComponent<Coin>().value);
-        Destroy(coin.gameObject);
+        //Destroy(coin.gameObject);
+        _pool.Release(coin.gameObject);
         coins.Remove(coin);
     }
 
@@ -123,7 +138,8 @@ public class CoinSpawner : MonoBehaviour
             }
             else
             {
-                GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                //GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                GameObject coin = _pool.Get();
                 coin.transform.parent = coinsParent;
                 coins.Add(coin.transform);
             }
