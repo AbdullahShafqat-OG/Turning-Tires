@@ -40,9 +40,6 @@ public class Powerup : MonoBehaviour
 
     protected virtual void Deactivate()
     {
-        Debug.Log("IN teh PARENT deactivate");
-
-
         _visualGameobject.SetActive(false);
 
         _blinkCoroutine = null;

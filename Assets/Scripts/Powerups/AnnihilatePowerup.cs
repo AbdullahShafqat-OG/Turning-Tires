@@ -3,35 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CarController))]
-public class AnnihilatePowerup : MonoBehaviour
+public class AnnihilatePowerup : Powerup
 {
-    [SerializeField]
-    private GameObject _annihilateGameobject;
     [SerializeField]
     private float _duration = 5.0f;
 
-    private CarController _carController;
-
-    private void Awake()
+    public override void Activate()
     {
-        _carController = GetComponent<CarController>();
+        base.Activate();
 
-        _annihilateGameobject.SetActive(_carController.annihilator);
-    }
-
-    public void Activate()
-    {
-        _annihilateGameobject.SetActive(true);
         _carController.annihilator = true;
-
-        StartCoroutine(Deactivate());
+        StartCoroutine(PowerupCountdown());
     }
 
-    public IEnumerator Deactivate()
+    private IEnumerator PowerupCountdown()
     {
         yield return new WaitForSeconds(_duration);
 
-        _annihilateGameobject.SetActive(false);
+        if (_blinkCoroutine == null)
+            _blinkCoroutine = StartCoroutine(BlinkCoroutine());
+    }
+
+    protected override void Deactivate()
+    {
+        base.Deactivate();
+
         _carController.annihilator = false;
     }
 }

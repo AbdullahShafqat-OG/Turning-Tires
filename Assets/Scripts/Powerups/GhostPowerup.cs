@@ -3,34 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CarController))]
-public class GhostPowerup : MonoBehaviour
+public class GhostPowerup : Powerup
 {
-    [SerializeField]
-    private GameObject _ghostGameObject;
     [SerializeField]
     private float _duration = 5.0f;
 
-    private CarController _carController;
-
-    private void Awake()
+    public override void Activate()
     {
-        _carController = GetComponent<CarController>();
-        _ghostGameObject.SetActive(_carController.ghost);
-    }
+        base.Activate();
 
-    public void Activate()
-    {
-        _ghostGameObject.SetActive(true);
         _carController.ghost = true;
-
-        StartCoroutine(Deactivate());
+        StartCoroutine(PowerupCountdown());
     }
 
-    public IEnumerator Deactivate()
+    private IEnumerator PowerupCountdown()
     {
         yield return new WaitForSeconds(_duration);
 
-        _ghostGameObject.SetActive(false);
+        if (_blinkCoroutine == null)
+            _blinkCoroutine = StartCoroutine(BlinkCoroutine());
+    }
+
+    protected override void Deactivate()
+    {
+        base.Deactivate();
+
         _carController.ghost = false;
     }
 }
