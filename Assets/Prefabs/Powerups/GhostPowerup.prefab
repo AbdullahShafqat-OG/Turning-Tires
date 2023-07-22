@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3132145356505589979}
   - component: {fileID: 3132145356505589978}
   - component: {fileID: 7386873783629272719}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GhostPowerup
   m_TagString: Ghost
   m_Icon: {fileID: 0}

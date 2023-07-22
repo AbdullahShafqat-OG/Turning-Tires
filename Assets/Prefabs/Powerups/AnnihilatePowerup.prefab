@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3193367998410863544}
   - component: {fileID: 4330830731719657685}
   - component: {fileID: 4330830731719657686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnnihilatePowerup
   m_TagString: Annihilate
   m_Icon: {fileID: 0}

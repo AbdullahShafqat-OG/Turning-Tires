@@ -27,7 +27,7 @@ public class CoinSpawner : MonoBehaviour
     private Color color = Color.blue;
     private List<Transform> coins;
 
-    private ObjectPool<GameObject> _pool;
+    //private ObjectPool<GameObject> _pool;
 
     private void Awake()
     {
@@ -43,15 +43,15 @@ public class CoinSpawner : MonoBehaviour
 
     private void Start()
     {
-        _pool = new ObjectPool<GameObject>(() => {
-            return Instantiate(coinPrefab, transform.position, Quaternion.identity);
-        }, coin => {
-            coin.SetActive(true);
-        }, coin => {
-            coin.SetActive(false);
-        }, coin => {
-            Destroy(coin);
-        }, false, 40, 100);
+        //_pool = new ObjectPool<GameObject>(() => {
+        //    return Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        //}, coin => {
+        //    coin.SetActive(true);
+        //}, coin => {
+        //    coin.SetActive(false);
+        //}, coin => {
+        //    Destroy(coin);
+        //}, false, 40, 100);
 
         coins = new List<Transform>();
         Invoke("SpawnCoin", interval);
@@ -95,16 +95,16 @@ public class CoinSpawner : MonoBehaviour
 
     private void DestroyCoin()
     {
-        _pool.Release(coins[0].gameObject);
-        //Destroy(coins[0].gameObject);
+        //_pool.Release(coins[0].gameObject);
+        Destroy(coins[0].gameObject);
         coins.RemoveAt(0);
     }
 
     private void DestroyCoin(Transform coin)
     {
         Messenger<int>.Broadcast(GameEvent.COIN_COLLECTED, coin.GetComponent<Coin>().value);
-        //Destroy(coin.gameObject);
-        _pool.Release(coin.gameObject);
+        Destroy(coin.gameObject);
+        //_pool.Release(coin.gameObject);
         coins.Remove(coin);
     }
 
@@ -138,8 +138,8 @@ public class CoinSpawner : MonoBehaviour
             }
             else
             {
-                //GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-                GameObject coin = _pool.Get();
+                GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+                //GameObject coin = _pool.Get();
                 coin.transform.parent = coinsParent;
                 coins.Add(coin.transform);
             }

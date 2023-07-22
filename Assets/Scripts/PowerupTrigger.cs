@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Powerup : MonoBehaviour
+public class PowerupTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

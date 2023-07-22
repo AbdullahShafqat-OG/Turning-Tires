@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 482556174458103896}
   - component: {fileID: 4005908341805812942}
   - component: {fileID: 4005908341805812941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MagnetPowerup
   m_TagString: Magnet
   m_Icon: {fileID: 0}

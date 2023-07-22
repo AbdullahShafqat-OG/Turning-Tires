@@ -3,35 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CarController))]
-public class MagnetPowerup : MonoBehaviour
+public class MagnetPowerup : Powerup
 {
-    [SerializeField]
-    private GameObject _magnetGameObject;
+    //[SerializeField]
+    //private GameObject _magnetGameObject;
     [SerializeField]
     private float _duration = 5.0f;
 
-    private CarController _carController;
+    //private CarController _carController;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    _carController = GetComponent<CarController>();
+
+    //    _magnetGameObject.SetActive(_carController.coinMagnet);
+    //}
+
+    public override void Activate()
     {
-        _carController = GetComponent<CarController>();
+        base.Activate();
 
-        _magnetGameObject.SetActive(_carController.coinMagnet);
-    }
-
-    public void Activate()
-    {
-        _magnetGameObject.SetActive(true);
+        //_magnetGameObject.SetActive(true);
         _carController.coinMagnet = true;
 
-        StartCoroutine(Deactivate());
+        StartCoroutine(PowerupCountdown());
     }
 
-    public IEnumerator Deactivate()
+    private IEnumerator PowerupCountdown()
     {
         yield return new WaitForSeconds(_duration);
 
-        _magnetGameObject.SetActive(false);
+        //_magnetGameObject.SetActive(false);
+        _carController.coinMagnet = false;
+        if (_blinkCoroutine == null)
+            _blinkCoroutine = StartCoroutine(BlinkCoroutine());
+    }
+
+    protected override void Deactivate()
+    {
+        base.Deactivate();
+
+        Debug.Log("IN teh child deactivate");
         _carController.coinMagnet = false;
     }
 }
