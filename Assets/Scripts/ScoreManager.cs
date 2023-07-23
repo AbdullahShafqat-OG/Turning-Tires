@@ -40,16 +40,19 @@ public class ScoreManager : MonoBehaviour
     private void UpdateScoreTime()
     {
         score += 1;
+        Messenger<int>.Broadcast(GameEvent.UI_UPDATE_SCORE, score);
     }
 
     private void UpdateScoreCoin(int value)
     {
         coins += value;
+        Messenger<int>.Broadcast(GameEvent.UI_UPDATE_COINS, coins);
     }
 
     private void UpdateScoreDestruction(int value)
     {
         destruction += value;
+        Messenger<int>.Broadcast(GameEvent.UI_UPDATE_DESTRUCTION, destruction);
     }
 
     private void OnGameOver()

@@ -12,6 +12,8 @@ public class GamePostState : GameBaseState
         game.decorationSpawner.gameObject.SetActive(false);
         game.obstacleSpawner.gameObject.SetActive(false);
 
+        // TODO: refactor this
+        // reset the scene instead of reloading it
         game.uiController.replayBtn.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         game.uiController.Open(game.uiController.postStatePanel);
 
@@ -21,7 +23,7 @@ public class GamePostState : GameBaseState
     public override void UpdateState(GameManager game)
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            game.SwitchState(game.preState);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public override void ExitState(GameManager game)

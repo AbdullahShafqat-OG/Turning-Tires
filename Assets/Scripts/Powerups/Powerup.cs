@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CarController))]
 public class Powerup : MonoBehaviour
 {
     [SerializeField]
@@ -10,7 +11,7 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private Material _blinkMaterial;
     [SerializeField]
-    private float _bufferTime = 1.0f;
+    protected float _bufferTime = 1.0f;
     [SerializeField]
     private int _blinkFrequency = 1;
 
@@ -21,6 +22,12 @@ public class Powerup : MonoBehaviour
 
     protected Coroutine _blinkCoroutine = null;
 
+    protected virtual bool PowerupEffect 
+    {
+        get { return false; }
+        set { }
+    }
+    
     private void Awake()
     {
         _meshRenderer = _visualGameobject.GetComponent<MeshRenderer>();
@@ -28,19 +35,21 @@ public class Powerup : MonoBehaviour
 
         _carController = GetComponent<CarController>();
 
-        _visualGameobject.SetActive(false);
+        _visualGameobject.SetActive(PowerupEffect);
     }
 
     public virtual void Activate()
     {
-        _visualGameobject.SetActive(true);
+        PowerupEffect = true;
+        _visualGameobject.SetActive(PowerupEffect);
 
         _meshRenderer.material = _defaultMaterial;
     }
 
     protected virtual void Deactivate()
     {
-        _visualGameobject.SetActive(false);
+        PowerupEffect = false;
+        _visualGameobject.SetActive(PowerupEffect);
 
         _blinkCoroutine = null;
     }

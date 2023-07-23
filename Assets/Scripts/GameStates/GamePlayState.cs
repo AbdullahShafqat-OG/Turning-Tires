@@ -30,10 +30,6 @@ public class GamePlayState : GameBaseState
 
         game.carController.Turn();
 
-        game.uiController.scoreTxt.text = "Score: " + game.scoreManager.score.ToString();
-        game.uiController.coinsTxt.text = "Coins: " + game.scoreManager.coins.ToString();
-        game.uiController.destructionTxt.text = "Destruction: " + game.scoreManager.destruction.ToString();
-
         IncreaseDifficulty(game);
     }
 
