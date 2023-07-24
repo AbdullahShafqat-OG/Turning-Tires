@@ -111,6 +111,7 @@ public class CarController : MonoBehaviour
     {
         Vector3 pos = transform.position + offset;
         pos.x = t.position.x;
+        pos.y = t.position.y;
         t.position = pos;
         return pos;
     }

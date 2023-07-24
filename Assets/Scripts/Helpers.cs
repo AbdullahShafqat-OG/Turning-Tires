@@ -49,4 +49,18 @@ public static class Helpers
         Gizmos.matrix = oldMatrix;
         Gizmos.color = oldColor;
     }
+
+    //
+    // Summary:
+    //     Sets the world space position and local scale of the Transform component.
+    //
+    // Parameters:
+    //   position:
+    //
+    //   scale:
+    public static void SetPositionAndScale(this Transform trans, Vector3 position, Vector3 scale)
+    {
+        trans.position = position;
+        trans.localScale = scale;
+    }
 }

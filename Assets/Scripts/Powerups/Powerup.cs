@@ -28,7 +28,7 @@ public class Powerup : MonoBehaviour
         set { }
     }
     
-    private void Awake()
+    protected virtual void Awake()
     {
         _meshRenderer = _visualGameobject.GetComponent<MeshRenderer>();
         _defaultMaterial = _meshRenderer.material;

@@ -39,14 +39,12 @@ public class DurationPowerup : Powerup
 
         if (PowerupEffect)
         {
-            Debug.Log("Already had this powerup");
             StopAllCoroutines();
         }
 
         base.Activate();
 
         _durationSlider.gameObject.SetActive(PowerupEffect);
-
 
         StartCoroutine(PowerupCountdown());
     }

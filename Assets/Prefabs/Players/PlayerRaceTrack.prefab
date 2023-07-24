@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 1841832757}
   - component: {fileID: 1841832761}
   - component: {fileID: 6617995199051016969}
+  - component: {fileID: 7110590791183217764}
   m_Layer: 7
   m_Name: PlayerRaceTrack
   m_TagString: Untagged
@@ -262,6 +263,7 @@ MonoBehaviour:
   shield: 0
   annihilator: 0
   ghost: 0
+  shrinked: 0
   explosionParticle: {fileID: 7101705660031278134, guid: 896b7c63158f3fb46baa79c7ffac7dfb,
     type: 3}
   currentCamPosition: {x: 0, y: 0, z: 0}
@@ -406,6 +408,8 @@ MonoBehaviour:
   _bufferTime: 0.5
   _blinkFrequency: 3
   _duration: 5
+  _sliderPrefab: {fileID: 0}
+  _parent: {fileID: 0}
 --- !u!114 &1841832761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,6 +427,8 @@ MonoBehaviour:
   _bufferTime: 0.5
   _blinkFrequency: 3
   _duration: 5
+  _sliderPrefab: {fileID: 0}
+  _parent: {fileID: 0}
 --- !u!114 &6617995199051016969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +446,29 @@ MonoBehaviour:
   _bufferTime: 0.5
   _blinkFrequency: 3
   _duration: 5
+  _sliderPrefab: {fileID: 0}
+  _parent: {fileID: 0}
+--- !u!114 &7110590791183217764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445875969805345213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0933939ce95a4468625b780304d859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visualGameobject: {fileID: 0}
+  _blinkMaterial: {fileID: 0}
+  _bufferTime: 1
+  _blinkFrequency: 1
+  _duration: 5
+  _sliderPrefab: {fileID: 0}
+  _parent: {fileID: 0}
+  _targetScale: {x: 0, y: 0, z: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &788543372093090465
 GameObject:
   m_ObjectHideFlags: 0
