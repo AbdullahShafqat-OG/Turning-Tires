@@ -10,6 +10,7 @@ TagManager:
   - Shield
   - Ghost
   - Magnet
+  - ShrinkRay
   layers:
   - Default
   - TransparentFX

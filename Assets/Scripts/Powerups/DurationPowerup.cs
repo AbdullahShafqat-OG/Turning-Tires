@@ -19,6 +19,8 @@ public class DurationPowerup : Powerup
     private float _currentTime;
     private bool _isCounting = false;
 
+    private Coroutine _powerupCountdownCoroutine = null;
+
     private void Start()
     {
         GameObject go = Instantiate(_sliderPrefab);
@@ -39,14 +41,24 @@ public class DurationPowerup : Powerup
 
         if (PowerupEffect)
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
+            if (_powerupCountdownCoroutine != null)
+            {
+                StopCoroutine(_powerupCountdownCoroutine);
+                _powerupCountdownCoroutine = null;
+            }
+            if (_blinkCoroutine != null)
+            {
+                StopCoroutine(_blinkCoroutine);
+                _blinkCoroutine = null;
+            }
         }
 
         base.Activate();
 
         _durationSlider.gameObject.SetActive(PowerupEffect);
 
-        StartCoroutine(PowerupCountdown());
+        _powerupCountdownCoroutine = StartCoroutine(PowerupCountdown());
     }
 
     private IEnumerator PowerupCountdown()
@@ -55,6 +67,8 @@ public class DurationPowerup : Powerup
 
         if (_blinkCoroutine == null)
             _blinkCoroutine = StartCoroutine(BlinkCoroutine());
+
+        _powerupCountdownCoroutine = null;
     }
 
     private void Update()

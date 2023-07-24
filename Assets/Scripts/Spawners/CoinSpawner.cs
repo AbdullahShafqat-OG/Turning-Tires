@@ -14,6 +14,9 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField]
     private Transform coinsParent;
     [SerializeField]
+    private Transform powerupsParent;
+
+    [SerializeField]
     private float radius = 2f;
     [SerializeField]
     private float zIncrement = 2f;
@@ -135,6 +138,7 @@ public class CoinSpawner : MonoBehaviour
                 pos.y = powerup.transform.position.y;
                 powerup.transform.position = pos;
                 powerup.transform.rotation = Quaternion.identity;
+                powerup.transform.parent = powerupsParent;
             }
             else
             {

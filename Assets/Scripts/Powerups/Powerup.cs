@@ -51,7 +51,7 @@ public class Powerup : MonoBehaviour
         PowerupEffect = false;
         _visualGameobject.SetActive(PowerupEffect);
 
-        _blinkCoroutine = null;
+        //_blinkCoroutine = null;
     }
 
     protected IEnumerator BlinkCoroutine()
@@ -73,6 +73,8 @@ public class Powerup : MonoBehaviour
             if (elapsedTime >= _bufferTime)
                 Deactivate();
         }
+
+        _blinkCoroutine = null;
     }
 
     private void ToggleMaterial()
