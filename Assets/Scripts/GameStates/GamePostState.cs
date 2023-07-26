@@ -18,6 +18,8 @@ public class GamePostState : GameBaseState
         game.uiController.Open(game.uiController.postStatePanel);
 
         Debug.Log($"On death speed: {game.carController.speed} safetyLevel: {game.obstacleSpawner.SafetyLevel}");
+
+        game.scoreManager.ToggleScorer();
     }
 
     public override void UpdateState(GameManager game)

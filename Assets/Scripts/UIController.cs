@@ -6,22 +6,30 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    [Header("Pre State")]
+    public Button playBtn;
     [field: SerializeField]
     public GameObject preStatePanel { get; private set; }
-    public Button playBtn;
 
+    [Header("Play State")]
+    public TMP_Text scoreTxt;
     [field: SerializeField]
     public GameObject playStatePanel { get; private set; }
-    public TMP_Text scoreTxt;
     public TMP_Text coinsTxt;
     public TMP_Text destructionTxt;
 
+    [Header("Post State")]
+    public TMP_Text postScoreTxt;
+    public TMP_Text postCoinsTxt;
+    public TMP_Text postDestructionTxt;
     [field: SerializeField]
     public GameObject postStatePanel { get; private set; }
+
+    [Header("Pause State")]
+    public Button replayBtn;
     [field: SerializeField]
     public GameObject pauseStatePanel { get; private set; }
 
-    public Button replayBtn;
 
     private bool paused = false;
     public bool Paused { get => paused; private set => paused = value; }
@@ -58,15 +66,18 @@ public class UIController : MonoBehaviour
     private void UpdateScoreText(int value)
     {
         scoreTxt.text = "Score: " + value;
+        postScoreTxt.text = value.ToString();
     }
 
     private void UpdateCoinsText(int value)
     {
         coinsTxt.text = "Coins: " + value;
+        postCoinsTxt.text = "+" + value;
     }
 
     private void UpdateDestructionText(int value)
     {
         destructionTxt.text = "Destruction: " + value;
+        postDestructionTxt.text = "+" + value;
     }
 }

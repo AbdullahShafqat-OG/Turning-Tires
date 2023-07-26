@@ -18,6 +18,8 @@ public class GamePlayState : GameBaseState
 
         game.carController.CurrentSpeed = game.carController.speed;
         timer = game.speedDifficultyRampTime;
+
+        game.scoreManager.ToggleScorer();
     }
 
     public override void UpdateState(GameManager game)

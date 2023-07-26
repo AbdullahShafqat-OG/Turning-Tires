@@ -13,6 +13,8 @@ public class GamePauseState : GameBaseState
 
     public override void EnterState(GameManager game)
     {
+        game.scoreManager.ToggleScorer();
+
         Time.timeScale = 0.0f;
         game.uiController.Open(game.uiController.pauseStatePanel);
 

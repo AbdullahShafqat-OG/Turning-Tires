@@ -13,6 +13,8 @@ public class ScoreManager : MonoBehaviour
     public int coins { get; private set; }
     public int destruction { get; private set; }
 
+    private Coroutine _scorer = null;
+
     private void Awake()
     {
         score = 0;
@@ -34,7 +36,29 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         scoreWithTimeRate /= 1000.0f;
-        InvokeRepeating("UpdateScoreTime", scoreWithTimeDelay, scoreWithTimeRate);
+        //InvokeRepeating("UpdateScoreTime", scoreWithTimeDelay, scoreWithTimeRate);
+    }
+
+    public bool ToggleScorer()
+    {
+        if (_scorer == null)
+            _scorer = StartCoroutine(Scorer());
+        else
+        {
+            StopCoroutine(_scorer);
+            _scorer = null;
+        }
+
+        return _scorer != null;
+    }
+
+    private IEnumerator Scorer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(scoreWithTimeDelay);
+            UpdateScoreTime();
+        }
     }
 
     private void UpdateScoreTime()
