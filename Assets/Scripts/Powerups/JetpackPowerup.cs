@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class GhostPowerup : DurationPowerup
+public class JetpackPowerup : DurationPowerup
 {
     [SerializeField]
     private float _targetPositionY;
     [SerializeField]
     private float _liftDuration = 0.5f;
+    [SerializeField]
+    private float _landDuration = 0.25f;
 
     private Vector3 _initialPosition;
 
@@ -28,9 +30,6 @@ public class GhostPowerup : DurationPowerup
     {
         base.Activate();
 
-        Vector3 targetPosition =
-            new Vector3(_carController.transform.position.x, _targetPositionY, _carController.transform.position.z);
-        //_carController.transform.position = targetPosition;
         _carController.transform.DOMoveY(_targetPositionY, _liftDuration);
     }
 
@@ -38,10 +37,7 @@ public class GhostPowerup : DurationPowerup
     {
         base.Deactivate();
 
-        //_initialPosition.x = _carController.transform.position.x;
-        //_initialPosition.z = _carController.transform.position.z;
-        //_carController.transform.position = _initialPosition;
-        _carController.transform.DOMoveY(_initialPosition.y, _liftDuration);
+        _carController.transform.DOMoveY(_initialPosition.y, _landDuration);
     }
 
 }

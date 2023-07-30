@@ -19,7 +19,7 @@ public class PowerupTrigger : MonoBehaviour
                 other.GetComponent<AnnihilatePowerup>().Activate();
                 break;
             case "Ghost":
-                other.GetComponent<GhostPowerup>().Activate();
+                other.GetComponent<JetpackPowerup>().Activate();
                 break;
             case "ShrinkRay":
                 other.GetComponent<ShrinkRayPowerup>().Activate();
