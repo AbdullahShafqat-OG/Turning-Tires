@@ -9,6 +9,11 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField]
     private GameObject coinPrefab;
     [SerializeField]
+    private GameObject _coinPullPrefab;
+    [SerializeField]
+    private float _coinPullDuration = 0.2f;
+
+    [SerializeField]
     private GameObject[] _powerupPrefabs;
 
     [SerializeField]
@@ -113,11 +118,27 @@ public class CoinSpawner : MonoBehaviour
 
     private void PullCoin(Transform player, Transform coin)
     {
-        Coin test = coin.GetComponent<Coin>();
-        if (test != null)
+        Transform coinPull = Instantiate(_coinPullPrefab).transform;
+        coinPull.position = coin.transform.position;
+        coinPull.rotation = coin.transform.rotation;
+        StartCoroutine(MoveToTarget(coinPull, player, _coinPullDuration));
+        coinPull.transform.DOScale(0, _coinPullDuration).SetEase(Ease.InSine).OnComplete(() => Destroy(coinPull.gameObject));
+
+        DestroyCoin(coin);
+    }
+
+    private IEnumerator MoveToTarget(Transform toMoveTransform, Transform targetTransform, float duration)
+    {
+        Vector3 startPosition = toMoveTransform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
-            coin.transform.DOMove(player.transform.position, 0.2f);
-            coin.transform.DOScale(0, 0.2f).SetEase(Ease.InSine).OnComplete(() => DestroyCoin(coin));
+            float t = elapsedTime / duration;
+            Vector3 currentPosition = Vector3.Lerp(startPosition, targetTransform.position, t);
+            toMoveTransform.position = currentPosition;
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 
