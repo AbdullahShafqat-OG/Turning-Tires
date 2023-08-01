@@ -9,6 +9,9 @@ public class GamePlayState : GameBaseState
 
     public override void EnterState(GameManager game)
     {
+        game.carController.enabled = true;
+
+
         game.spawner.gameObject.SetActive(true);
         game.coinSpawner.gameObject.SetActive(true);
         game.decorationSpawner.gameObject.SetActive(true);

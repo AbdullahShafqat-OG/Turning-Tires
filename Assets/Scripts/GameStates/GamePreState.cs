@@ -14,7 +14,8 @@ public class GamePreState : GameBaseState
         game.uiController.playBtn.onClick.AddListener(() => game.SwitchState(game.playState));
         game.uiController.Open(game.uiController.preStatePanel);
 
-        game.carController.CurrentSpeed = game.carController.menuSpeed;
+        game.carController.enabled = false;
+        //game.carController.CurrentSpeed = game.carController.menuSpeed;
     }
 
     public override void UpdateState(GameManager game)
