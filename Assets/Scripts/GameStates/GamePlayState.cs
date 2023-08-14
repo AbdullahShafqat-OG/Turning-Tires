@@ -19,7 +19,6 @@ public class GamePlayState : GameBaseState
 
         game.uiController.Open(game.uiController.playStatePanel);
 
-        game.carController.CurrentSpeed = game.carController.speed;
         timer = game.speedDifficultyRampTime;
 
         game.scoreManager.ToggleScorer();
@@ -33,6 +32,7 @@ public class GamePlayState : GameBaseState
         if (!game.carController.alive)
             game.SwitchState(game.postState);
 
+        game.carController.Move();
         game.carController.Turn();
 
         IncreaseDifficulty(game);

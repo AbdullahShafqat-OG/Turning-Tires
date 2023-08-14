@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float menuSpeed = 5.0f;
     public float speed = 20.0f;
     public float turnSpeed = 150.0f;
     public float minTurn = -30.0f;
@@ -38,8 +37,6 @@ public class CarController : MonoBehaviour
 
     private bool firstTap = false;
 
-    public float CurrentSpeed { private get; set; }
-
     private void Awake()
     {
         _cam = Camera.main;
@@ -62,7 +59,7 @@ public class CarController : MonoBehaviour
         if (!alive) return;
 
         //Turn();
-        Move();
+        //Move();
 
         currentCamPosition = FollowPlayer(_cam.transform, _offsetCam);
         FollowPlayer(screenBounds.transform, _offsetBounds);
@@ -72,9 +69,9 @@ public class CarController : MonoBehaviour
         CoinMagnet();
     }
 
-    private void Move()
+    public void Move()
     {
-        transform.Translate(Vector3.forward * CurrentSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
         StartCoroutine(Wrap());
     }
@@ -97,6 +94,28 @@ public class CarController : MonoBehaviour
         {
             firstTap = true;
             turnSpeed = -turnSpeed;
+        }
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    firstTap = true;
+                    turnSpeed = -turnSpeed;
+                    break;
+                case TouchPhase.Moved:
+                    break;
+                case TouchPhase.Stationary:
+                    break;
+                case TouchPhase.Ended:
+                    break;
+                case TouchPhase.Canceled:
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (!firstTap) return;
