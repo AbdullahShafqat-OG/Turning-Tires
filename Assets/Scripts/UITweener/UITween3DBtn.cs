@@ -15,6 +15,11 @@ public class UITween3DBtn : MonoBehaviour
     private float _duration = 0.5f;
     [SerializeField]
     private Ease _ease = Ease.OutElastic;
+    [SerializeField]
+    private float _amplitude;
+    [Range(-1.0f, 1.0f)]
+    [SerializeField]
+    private float _period;
 
     [SerializeField]
     private Transform _knobTransform;
@@ -45,13 +50,13 @@ public class UITween3DBtn : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _knobTransform.DOMoveY(_deltaY, _duration).SetEase(_ease);
-        transform.DOScale(_pressedScale, _duration).SetEase(_ease);
+        _knobTransform.DOMoveY(_deltaY, _duration).SetEase(_ease, _amplitude, _period);
+        transform.DOScale(_pressedScale, _duration).SetEase(_ease, _amplitude, _period);
     }
 
     private void OnMouseUp()
     {
-        _knobTransform.DOMoveY(_initialY, _duration).SetEase(_ease);
-        transform.DOScale(_initialScale, _duration).SetEase(_ease);
+        _knobTransform.DOMoveY(_initialY, _duration).SetEase(_ease, _amplitude, _period);
+        transform.DOScale(_initialScale, _duration).SetEase(_ease, _amplitude, _period);
     }
 }

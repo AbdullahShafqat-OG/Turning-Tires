@@ -6,6 +6,8 @@ public class GamePreState : GameBaseState
 {
     public override void EnterState(GameManager game)
     {
+        game.carController.enabled = false;
+
         game.spawner.gameObject.SetActive(false);
         game.coinSpawner.gameObject.SetActive(false);
         game.decorationSpawner.gameObject.SetActive(false);

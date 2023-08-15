@@ -11,7 +11,6 @@ public class GamePlayState : GameBaseState
     {
         game.carController.enabled = true;
 
-
         game.spawner.gameObject.SetActive(true);
         game.coinSpawner.gameObject.SetActive(true);
         game.decorationSpawner.gameObject.SetActive(true);

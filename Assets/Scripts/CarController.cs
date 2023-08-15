@@ -19,8 +19,11 @@ public class CarController : MonoBehaviour
     public bool annihilator = false;
     public bool ghost = false;
 
-    private ScreenBounds screenBounds;
-    private GameObject ground;
+    [SerializeField]
+    private LayerMask _groundLayer;
+
+    private ScreenBounds _screenBounds;
+    private GameObject _ground;
     [SerializeField]
     private GameObject explosionParticle;
 
@@ -44,12 +47,24 @@ public class CarController : MonoBehaviour
 
     private void Start()
     {
-        screenBounds = FindObjectOfType<ScreenBounds>();
-        ground = GameObject.FindGameObjectWithTag("Respawn");
+        Debug.Log("Car Controller is starting");
 
-        _offsetBounds = screenBounds.transform.position - transform.position;
+        _screenBounds = FindObjectOfType<ScreenBounds>();
+
+        // new way to detect ground
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
+        {
+            Debug.Log("Hit the ground " + hit.collider.name);
+            _ground = hit.collider.gameObject;
+        }
+        else 
+            _ground = GameObject.FindGameObjectWithTag("Respawn");
+
+        _offsetBounds = _screenBounds.transform.position - transform.position;
         _offsetCam = _cam.transform.position - transform.position;
-        _offsetGround = ground.transform.position - transform.position;
+        _offsetGround = _ground.transform.position - transform.position;
 
         turnSpeed = -turnSpeed;
     }
@@ -58,12 +73,9 @@ public class CarController : MonoBehaviour
     {
         if (!alive) return;
 
-        //Turn();
-        //Move();
-
         currentCamPosition = FollowPlayer(_cam.transform, _offsetCam);
-        FollowPlayer(screenBounds.transform, _offsetBounds);
-        FollowPlayer(ground.transform, _offsetGround);
+        FollowPlayer(_screenBounds.transform, _offsetBounds);
+        FollowPlayer(_ground.transform, _offsetGround);
 
         CollectCoin();
         CoinMagnet();
@@ -78,11 +90,11 @@ public class CarController : MonoBehaviour
 
     private IEnumerator Wrap()
     {
-        if (screenBounds.AmIOutOfBounds(transform.position))
+        if (_screenBounds.AmIOutOfBounds(transform.position))
         {
             trail.emitting = false;
             yield return new WaitForEndOfFrame();
-            transform.position = screenBounds.CalculateWrappedPosition(transform.position);
+            transform.position = _screenBounds.CalculateWrappedPosition(transform.position);
             yield return new WaitForEndOfFrame();
             trail.emitting = true;
         }

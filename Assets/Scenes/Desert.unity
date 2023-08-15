@@ -1639,7 +1639,7 @@ GameObject:
   - component: {fileID: 359122007}
   - component: {fileID: 359122006}
   - component: {fileID: 359122005}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Respawn
   m_Icon: {fileID: 0}
@@ -2372,6 +2372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: menuSpeed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445875969805345208, guid: 460bbfde02f19374fb6acbb3623a9537,
+        type: 3}
+      propertyPath: _groundLayer.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 445875969805345209, guid: 460bbfde02f19374fb6acbb3623a9537,
         type: 3}
@@ -8384,6 +8389,8 @@ MonoBehaviour:
   _deltaScale: 0.1
   _duration: 0.3
   _ease: 24
+  _amplitude: 0
+  _period: 0
   _knobTransform: {fileID: 0}
 --- !u!65 &881251911
 BoxCollider:
@@ -9506,7 +9513,7 @@ GameObject:
   - component: {fileID: 1379862943}
   - component: {fileID: 1379862942}
   - component: {fileID: 1379862941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
