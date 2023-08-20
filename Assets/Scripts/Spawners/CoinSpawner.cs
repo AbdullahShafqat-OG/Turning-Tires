@@ -12,7 +12,10 @@ public class CoinSpawner : MonoBehaviour
     private GameObject _coinPullPrefab;
     [SerializeField]
     private float _coinPullDuration = 0.2f;
+    [SerializeField]
+    private AudioClip _coinCollectSFX;
 
+    [Space]
     [SerializeField]
     private GameObject[] _powerupPrefabs;
 
@@ -35,18 +38,20 @@ public class CoinSpawner : MonoBehaviour
     private Color color = Color.blue;
     private List<Transform> coins;
 
+    private AudioSource _audioSource;
+
     //private ObjectPool<GameObject> _pool;
 
     private void Awake()
     {
         Messenger<Transform, Transform>.AddListener(GameEvent.COIN_PULLED, PullCoin);
-        //Messenger.AddListener(GameEvent.GAME_OVER, OnGameOver);
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnDestroy()
     {
         Messenger<Transform, Transform>.RemoveListener(GameEvent.COIN_PULLED, PullCoin);
-        //Messenger.RemoveListener(GameEvent.GAME_OVER, OnGameOver);
     }
 
     private void Start()
@@ -125,6 +130,8 @@ public class CoinSpawner : MonoBehaviour
         coinPull.transform.DOScale(0, _coinPullDuration).SetEase(Ease.InSine).OnComplete(() => Destroy(coinPull.gameObject));
 
         DestroyCoin(coin);
+
+        _audioSource.PlayOneShot(_coinCollectSFX);
     }
 
     private IEnumerator MoveToTarget(Transform toMoveTransform, Transform targetTransform, float duration)

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PowerupTrigger : MonoBehaviour
 {
+    private AudioClip _powerupCollectSFX;
+
+    private void Awake()
+    {
+        _powerupCollectSFX = Resources.Load<AudioClip>("Music/pickup_1");    
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         string tag = this.tag;
@@ -27,6 +34,8 @@ public class PowerupTrigger : MonoBehaviour
             default:
                 break;
         }
+
+        other.GetComponent<AudioSource>().PlayOneShot(_powerupCollectSFX);
 
         Destroy(gameObject);
     }

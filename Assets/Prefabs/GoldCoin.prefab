@@ -104,6 +104,7 @@ MonoBehaviour:
   rotationAmount: {x: 0, y: 180, z: 0}
   rotationDuration: 1
   rotationEase: 1
+  _collectSound: {fileID: 8300000, guid: 7b6be6e32ae7f4745ab6f0400ede8f0b, type: 3}
 --- !u!65 &9068909998871799725
 BoxCollider:
   m_ObjectHideFlags: 0

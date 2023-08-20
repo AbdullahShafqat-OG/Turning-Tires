@@ -11,6 +11,9 @@ public class CarController : MonoBehaviour
     public TrailRenderer trail;
 
     [SerializeField]
+    private AudioClip _carTurnSFX;
+
+    [SerializeField]
     private float coinCollectionRadius = 2.0f;
 
     [Header("Special Modes")]
@@ -36,6 +39,8 @@ public class CarController : MonoBehaviour
 
     private float _rotation = 0;
 
+    private AudioSource _audioSource;
+
     public bool alive { get; private set; } = true;
 
     private bool firstTap = false;
@@ -43,12 +48,11 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         _cam = Camera.main;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        Debug.Log("Car Controller is starting");
-
         _screenBounds = FindObjectOfType<ScreenBounds>();
 
         // new way to detect ground
@@ -56,7 +60,6 @@ public class CarController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
         {
-            Debug.Log("Hit the ground " + hit.collider.name);
             _ground = hit.collider.gameObject;
         }
         else 
@@ -90,7 +93,7 @@ public class CarController : MonoBehaviour
 
     private IEnumerator Wrap()
     {
-        if (_screenBounds.AmIOutOfBounds(transform.position))
+        if (_screenBounds != null && _screenBounds.AmIOutOfBounds(transform.position))
         {
             trail.emitting = false;
             yield return new WaitForEndOfFrame();
@@ -106,6 +109,12 @@ public class CarController : MonoBehaviour
         {
             firstTap = true;
             turnSpeed = -turnSpeed;
+
+            // TODO: the turn audio gets played even when with the 
+            // first tap to start the game
+            // make it so that the game start tap is a UI event
+            // and not being handled in this turn method
+            _audioSource.PlayOneShot(_carTurnSFX);
         }
 
         if (Input.touchCount > 0)

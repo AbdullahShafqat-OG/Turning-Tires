@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         CameraLength = _camZStart.position.z - CamZEnd.position.z;
-        CurrentZ = CamZEnd.position.z + _zOffset;
+        CurrentZ = _camZStart.position.z + _zOffset;
     }
 
     private void Update()
